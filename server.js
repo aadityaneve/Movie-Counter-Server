@@ -27,7 +27,7 @@ app.get("/counter", async (req, res) => {
         const counter = await VisitorCounter.findById(
             "61a4bf9f17e63e3fe8c33d8c"
         );
-        return res.status(201).send(counter);
+        return res.status(201).send(counter.visitor_count);
     } catch (e) {
         return res.status(500).send({ message: e.message });
     }
@@ -40,7 +40,7 @@ app.patch("/counter", async (req, res) => {
             { $inc: { visitor_count: 1 } },
             { new: true }
         );
-        return res.status(201).send(counter);
+        return res.status(201).send(counter.visitor_count);
     } catch (e) {
         return res.status(500).send({ message: e.message });
     }

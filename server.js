@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 const connect = () =>
     mongoose.connect(
@@ -9,14 +10,6 @@ const connect = () =>
     );
 
 app.use(express.json());
-
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
-}
-
-app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
 
 const visitorCounter = new mongoose.Schema(
     {
@@ -53,7 +46,7 @@ app.patch("/counter", async (req, res) => {
     }
 });
 
-app.listen(3001, async () => {
+app.listen(PORT, async () => {
     await connect();
-    console.log("LISTENING TO SERVER 3001");
+    console.log(`LISTENING TO SERVER ${PORT}`);
 });

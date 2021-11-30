@@ -41,7 +41,6 @@ app.get("/counter", async (req, res) => {
         const counter = await VisitorCounter.findById(
             "61a4bf9f17e63e3fe8c33d8c"
         );
-        res.header("Access-Control-Allow-Origin", "true");
         return res.status(200).send(counter);
     } catch (e) {
         return res.status(500).send({ message: e.message });
@@ -55,7 +54,6 @@ app.patch("/counter", async (req, res) => {
             { $inc: { visitor_count: 1 } },
             { new: true }
         );
-        res.header("Access-Control-Allow-Origin", "true");
         return res.status(200).end();
     } catch (e) {
         return res.status(500).send({ message: e.message });

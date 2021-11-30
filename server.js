@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -10,6 +11,8 @@ const connect = () =>
     );
 
 app.use(express.json());
+app.use(cors());
+
 
 const visitorCounter = new mongoose.Schema(
     {
@@ -27,7 +30,8 @@ app.get("/counter", async (req, res) => {
         const counter = await VisitorCounter.findById(
             "61a4bf9f17e63e3fe8c33d8c"
         );
-        return res.status(201).send(counter);
+        res.header("Access-Control-Allow-Origin", "true");
+        return res.status(200).send(counter);
     } catch (e) {
         return res.status(500).send({ message: e.message });
     }
@@ -40,7 +44,8 @@ app.patch("/counter", async (req, res) => {
             { $inc: { visitor_count: 1 } },
             { new: true }
         );
-        return res.status(201).end();
+        res.header("Access-Control-Allow-Origin", "true");
+        return res.status(200).end();
     } catch (e) {
         return res.status(500).send({ message: e.message });
     }

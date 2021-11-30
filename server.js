@@ -40,7 +40,7 @@ app.patch("/counter", async (req, res) => {
             { $inc: { visitor_count: 1 } },
             { new: true }
         );
-        return res.status(201).send(counter);
+        return res.status(201).end();
     } catch (e) {
         return res.status(500).send({ message: e.message });
     }
